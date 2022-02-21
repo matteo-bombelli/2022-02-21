@@ -1,0 +1,15 @@
+[
+    {
+      "id":"excavation",
+      "localizedName":"Excavation"
+    },
+    {
+      "id":"plumbig",
+      "localizedName":"Plumbing"
+    }, 
+    {
+      "id":"electrical",
+      "localizedName":"Electrical"
+    }
+]
+  

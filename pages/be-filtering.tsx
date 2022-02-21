@@ -6,24 +6,8 @@ import { getCompanies } from "../api/company";
 import { getSpecialities } from "../api/specialities";
 import { CompanyRow } from "../components/CompanyRow";
 import styles from '../styles/Home.module.css'
-
-const filterCompaniesByData = (
-	companies: Company[],
-	filters: string[],
-	searchTerm: string
-) => companies.filter((el=>{
-	if(searchTerm && !(el.companyName.toLowerCase().includes(searchTerm.toLowerCase()))){
-		return false;
-	}
-	if(Array.isArray(filters)){
-		for(let filter of filters){
-			if(!el.specialities.find(spec=>spec.id === filter)){
-				return false;
-			}
-		}
-	}
-	return true;
-}));
+import { getCompaniesFiltered } from "../api/getCompanyFiltered";
+import { Pagination } from "../components/Pagination"
 
 
 const Home: NextPage = () => {
@@ -31,15 +15,8 @@ const Home: NextPage = () => {
 	const [filters, setFilters] = useState<string[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [specialities, setSpecialities] = useState<Speciality[]>([]);
-
-	useEffect(() => {
-		(async () => {
-			const comp = await getCompanies();
-			setCompanies(comp);
-			const specs = await getSpecialities();
-			setSpecialities(specs);
-		})()
-	}, []);
+	const [page, setPage] = useState<number>(0);
+	const [pages, setPages] = useState<number>(0);
 
 	const onChangeSearchTerm = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const newSearchterm = event.target?.value || "";
@@ -60,9 +37,28 @@ const Home: NextPage = () => {
 		}
 	}, [])
 
-	const filteredCompanies = useMemo(()=>{
-		return filterCompaniesByData(companies, filters, searchTerm)
-	}, [companies, filters, searchTerm]) ;
+	const callBackend = useCallback(()=>{
+		(async ()=>{
+			const {companies, pagination} = await getCompaniesFiltered({filters, searchTerm, page});
+			setCompanies(companies)
+			setPages(pagination.pages);
+		})()
+	}, [filters, searchTerm, page])
+
+	useEffect(()=>{
+		callBackend();
+	}, [callBackend])
+
+	useEffect(() => {
+		(async () => {
+			const specs = await getSpecialities();
+			setSpecialities(specs);
+		})()
+	}, []);
+
+	const goToPage = useCallback((page:number)=>{
+		setPage(page);
+	}, [])
 
 	return (
 		<div className={styles.container}>
@@ -83,6 +79,7 @@ const Home: NextPage = () => {
 						onChange={onChangeSearchTerm} 
 						className={styles.searchtermInput}
 						id="searchTerm" 
+						value={searchTerm}
 					/>
 				</fieldset>
 				<fieldset>
@@ -97,6 +94,7 @@ const Home: NextPage = () => {
 								id={spec.id} 
 								onChange={onSelectedFilter}
 								className={styles.specialityCheck} 
+								checked={filters.includes(spec.id)}
 							/>
 							<label
 								htmlFor={spec.id}
@@ -115,7 +113,7 @@ const Home: NextPage = () => {
 						city={(<> City </>)} 
 						className={styles.onlyDesktop}
 					/>
-					{filteredCompanies.map((company, index) => (
+					{companies.map((company) => (
 						<CompanyRow 
 							key={company.id}
 							name={<span>{company.companyName}</span>}
@@ -137,6 +135,9 @@ const Home: NextPage = () => {
 							city={<span>{company.city}</span>}
 						/>
 					))}
+					{pages>0 && (
+						<Pagination page={page} pages={pages} goToPage={goToPage} />
+					)}
 				</div>
 			</div>
 		</div>

@@ -48,3 +48,7 @@ export const saveExampleList = ()=> {
 export const saveBigExampleList = () => {
     return fs.writeFile(path.join(dataDirectory, 'companies-big.json'), JSON.stringify(aLotOfCompanies, null, 4), {encoding:"utf-8"})
 }
+
+export const saveSpecialities = () => {
+    return fs.writeFile(path.join(dataDirectory, 'companies-big.json'), JSON.stringify(companyExample.specialities), {encoding:"utf-8"})
+}

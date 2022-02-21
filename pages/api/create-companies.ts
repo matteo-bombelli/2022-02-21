@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Company } from "../../sharedTypes/Company";
-import { exampleCompanies, saveExampleList, aLotOfCompanies, saveBigExampleList} from "../../data/dataCreation";
+import { exampleCompanies, saveExampleList, aLotOfCompanies, saveBigExampleList, saveSpecialities} from "../../data/dataCreation";
 
 interface Output {
     example: {
@@ -21,7 +21,7 @@ export default async function handler(
 ) {
     
     try{
-        await Promise.all([saveBigExampleList(), saveExampleList()]) ;
+        await Promise.all([saveBigExampleList(), saveExampleList(), saveSpecialities()]) ;
         res.status(200).json({
             example: {
                 comapnies: exampleCompanies

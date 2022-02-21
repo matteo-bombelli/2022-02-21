@@ -5,64 +5,12 @@ import { Company, Speciality } from "../sharedTypes/Company";
 import { getCompanies } from "../api/company";
 import { getSpecialities } from "../api/specialities";
 import { CompanyRow } from "../components/CompanyRow";
+import { filterCompaniesByData } from "../utils/filterCompanies";
 import styles from '../styles/Home.module.css'
-
-const filterCompaniesByData = (
-	companies: Company[],
-	filters: string[],
-	searchTerm: string
-) => companies.filter((el=>{
-	if(searchTerm && !(el.companyName.toLowerCase().includes(searchTerm.toLowerCase()))){
-		return false;
-	}
-	if(Array.isArray(filters)){
-		for(let filter of filters){
-			if(!el.specialities.find(spec=>spec.id === filter)){
-				return false;
-			}
-		}
-	}
-	return true;
-}));
 
 
 const Home: NextPage = () => {
-	const [companies, setCompanies] = useState<Company[]>([]);
-	const [filters, setFilters] = useState<string[]>([]);
-	const [searchTerm, setSearchTerm] = useState("");
-	const [specialities, setSpecialities] = useState<Speciality[]>([]);
-
-	useEffect(() => {
-		(async () => {
-			const comp = await getCompanies();
-			setCompanies(comp);
-			const specs = await getSpecialities();
-			setSpecialities(specs);
-		})()
-	}, []);
-
-	const onChangeSearchTerm = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		const newSearchterm = event.target?.value || "";
-		setSearchTerm(newSearchterm)
-	}, [])
-
-	const onSelectedFilter = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		const filterValue = !!(event.target?.checked);
-		const filterId = event.target.id;
-		if (filterValue) {
-			setFilters(filters => {
-				return Array.from(new Set([...filters, filterId]))
-			})
-		} else {
-			setFilters(filters => {
-				return filters.filter(el => el != filterId);
-			})
-		}
-	}, [])
-
-	const filteredCompanies = useMemo(()=>{
-		return filterCompaniesByData(companies, filters, searchTerm)
-	}, [companies, filters, searchTerm]) ;
+	
 
 	return (
 		<div className={styles.container}>
@@ -71,74 +19,6 @@ const Home: NextPage = () => {
 				<meta name="description" content="Search and filter for companies" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
-			<div>
-				<fieldset>
-					<label 
-						htmlFor="searchTerm"
-					>
-						Search for companies
-					</label>
-					<input 
-						onChange={onChangeSearchTerm} 
-						className={styles.searchtermInput}
-						id="searchTerm" 
-					/>
-				</fieldset>
-				<fieldset>
-					<legend>Filter by specialities</legend>
-					{specialities.map((spec)=>(
-						<div 
-							className={styles.speciality} 
-							key={spec.id}
-						>
-							<input 
-								type="checkbox" 
-								id={spec.id} 
-								onChange={onSelectedFilter}
-								className={styles.specialityCheck} 
-							/>
-							<label
-								htmlFor={spec.id}
-								className={styles.specialityLabel}
-							>
-								{spec.localizedName}
-							</label>
-						</div>
-					))}
-				</fieldset>
-				<div>
-					<CompanyRow  
-						name={<>Name</>} 
-						logo={(<>Logo</>)} 
-						specialities={(<>Specialities</>)} 
-						city={(<> City </>)} 
-						className={styles.onlyDesktop}
-					/>
-					{filteredCompanies.map((company, index) => (
-						<CompanyRow 
-							key={company.id}
-							name={<span>{company.companyName}</span>}
-							logo={<span
-								className={styles.logo}  
-								style={{backgroundImage:`url(${company.logo})`}}
-							/>}
-							specialities={<span>{
-								company.specialities
-									.map(el=>(
-									<span 
-										className={styles.speciality__tag}
-										key={el.id}
-									>
-										{el.localizedName}
-									</span>))
-								}</span>
-							}
-							city={<span>{company.city}</span>}
-						/>
-					))}
-				</div>
-			</div>
 		</div>
 	)
 }

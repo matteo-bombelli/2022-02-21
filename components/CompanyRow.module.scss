@@ -1,0 +1,54 @@
+/* autoprefixer grid: autoplace */
+
+.companyRow{
+  display:grid;
+  grid-template: 'logo name'
+    'logo city'
+    'specialities specialities';
+  grid-template-columns: 60px 1fr;
+  padding: 15px;
+  gap: 15px;
+  border-bottom: 1px solid #CCC;
+  &__mobileLabel{
+    font-size: bold;
+  }
+  &__name{
+    font-weight: bold;
+    grid-area: name;
+  }
+  &__logo{
+    width:60px;
+    grid-area: logo;
+  }
+  &__specialities{
+    grid-area: specialities;
+  }
+  &__city{
+    grid-area: city;
+  }
+  @media (min-width:801px){
+    display:flex;
+    width:100%;
+    align-items: center;
+    padding: 15px;
+    &__name{
+      width: 30%;
+      display:flex;
+    }
+    &__logo{
+      width: 10%;
+      display:flex;
+    }
+    &__specialities{
+      width: 40%;
+      display:flex;
+    }
+    &__city{
+      width: 20%;
+      display:flex;
+    }
+    &__mobileLabel{
+      display:none
+    }
+  }
+}

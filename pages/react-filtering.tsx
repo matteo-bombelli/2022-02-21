@@ -1,24 +1,30 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { Company, Speciality } from "../sharedTypes/Company";
+import { getCompanies } from "../api/company";
 import { getSpecialities } from "../api/specialities";
-import { getCompaniesFiltered } from "../api/getCompanyFiltered";
+import { filterCompaniesByData } from "../utils/filterCompanies";
 import { CompaniesTable } from "../components/CompaniesTable";
 import { Filters } from "../components/Filters";
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
 	const [companies, setCompanies] = useState<Company[]>([]);
 	const [filters, setFilters] = useState<string[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [specialities, setSpecialities] = useState<Speciality[]>([]);
-	const [page, setPage] = useState<number>(0);
-	const [pages, setPages] = useState<number>(0);
+
+	useEffect(() => {
+		(async () => {
+			const comp = await getCompanies();
+			setCompanies(comp);
+			const specs = await getSpecialities();
+			setSpecialities(specs);
+		})()
+	}, []);
 
 	const onChangeSearchTerm = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const newSearchterm = event.target?.value || "";
-		setPage(0);
 		setSearchTerm(newSearchterm)
 	}, [])
 
@@ -26,51 +32,30 @@ const Home: NextPage = () => {
 		const filterValue = !!(event.target?.checked);
 		const filterId = event.target.id;
 		if (filterValue) {
-			setPage(0);
 			setFilters(filters => {
 				return Array.from(new Set([...filters, filterId]))
 			})
 		} else {
-			setPage(0);
 			setFilters(filters => {
 				return filters.filter(el => el != filterId);
 			})
 		}
 	}, [])
 
-	const callBackend = useCallback(()=>{
-		(async ()=>{
-			const {companies, pagination} = await getCompaniesFiltered({filters, searchTerm, page});
-			setCompanies(companies)
-			setPages(pagination.pages);
-		})()
-	}, [filters, searchTerm, page])
-
-	useEffect(()=>{
-		callBackend();
-	}, [callBackend])
-
-	useEffect(() => {
-		(async () => {
-			const specs = await getSpecialities();
-			setSpecialities(specs);
-		})()
-	}, []);
-
-	const goToPage = useCallback((page:number)=>{
-		setPage(page);
-	}, [])
+	const filteredCompanies = useMemo(()=>{
+		return filterCompaniesByData(companies, filters, searchTerm)
+	}, [companies, filters, searchTerm]) ;
 
 	return (
 		<div>
 			<Head>
-				<title>Test App - NodeJs Filetring</title>
+				<title>Test App - React Filetring</title>
 				<meta name="description" content="Search and filter for companies" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<div>
-				<Filters
+                <Filters
 					searchTerm={searchTerm}
 					filters={filters}
 					onChangeSearchTerm={onChangeSearchTerm}
@@ -78,12 +63,8 @@ const Home: NextPage = () => {
 					specialities={specialities}
 				/>
 				<CompaniesTable 
-					companies={companies}
-					page={page}
-					pages={pages}
-					goToPage={goToPage} 
+					companies={filteredCompanies}
 				/>
-
 			</div>
 		</div>
 	)

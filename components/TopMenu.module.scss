@@ -1,0 +1,33 @@
+@use "./../styles/colors";
+
+.TopMenu{
+    padding-bottom: 15px;
+    &__Nav{
+        padding-top: 15px;
+        &>ul{
+            display:flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            justify-content: flex-start;
+            max-width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+    &__Link{
+        display:flex;
+        color: colors.$grey;
+        background-color: white;
+        padding:10px;
+        transform: translateY(1px);
+        &--active{
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid white;
+            color: colors.$primary;
+            background-color: white;
+            font-weight: bold;
+        }
+    }
+}

@@ -4,7 +4,20 @@
         "companyName": "exampleCompany_0",
         "logo": "http://placekitten.com/200/300",
         "city": "Berlin",
-        "specialities": []
+        "specialities": [
+            {
+                "id": "excavation",
+                "localizedName": "Excavation"
+            },
+            {
+                "id": "plumbig",
+                "localizedName": "Plumbing"
+            },
+            {
+                "id": "electrical",
+                "localizedName": "Electrical"
+            }
+        ]
     },
     {
         "id": "company_1",

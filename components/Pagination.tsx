@@ -16,6 +16,7 @@ export const Pagination = ({page, pages, goToPage}:Props)=>{
                 <button 
                     onClick={()=>goToPage(0)}
                     className={style.Pagination__first}
+                    aria-label={"go to first page"}
                 >
                     {"<<"}    
                 </button>
@@ -24,6 +25,7 @@ export const Pagination = ({page, pages, goToPage}:Props)=>{
                 <button 
                     onClick={()=>goToPage(page - 3)}
                     className={style.Pagination__prev}
+                    aria-label={"go to previous list of pages"}
                 >
                     {"<"}    
                 </button>
@@ -36,6 +38,7 @@ export const Pagination = ({page, pages, goToPage}:Props)=>{
                         style.Pagination__selected:
                         ""
                     }`}
+                    aria-label={`go to page ${el +1}`}
                 >
                     {el + 1}
                 </button>
@@ -44,6 +47,7 @@ export const Pagination = ({page, pages, goToPage}:Props)=>{
                 <button 
                     onClick={()=>goToPage(page + 3)}
                     className={style.Pagination__next}
+                    aria-label={"go to next list of pages"}
                 >
                     {">"}    
                 </button>
@@ -52,6 +56,7 @@ export const Pagination = ({page, pages, goToPage}:Props)=>{
                 <button 
                     onClick={()=>goToPage(pages - 1)}
                     className={style.Pagination__last}
+                    aria-label={"go to last page"}
                 >
                     {">>"}    
                 </button>

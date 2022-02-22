@@ -1,5 +1,4 @@
-import { ADDRGETNETWORKPARAMS } from "dns";
-import { Company, OutputFilteredCall } from "../sharedTypes/Company"
+import { OutputFilteredCall } from "../sharedTypes/Company"
 
 interface Input {
     filters?:string[],

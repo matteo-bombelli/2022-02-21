@@ -1,6 +1,21 @@
 import Link from 'next/link';
 import style from "./TopMenu.module.scss";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
+
+const links = [
+    {
+        url:"/react-filtering",
+        text:"React filters"
+    },
+    {
+        url:"/be-filtering",
+        text:"nodejs rest filtering"
+    },
+    {
+        url:"/be-filtering-graphql",
+        text:"nodejs graphql filtering"
+    }
+]
 
 export const TopMenu = () => {
     const router = useRouter();
@@ -8,28 +23,19 @@ export const TopMenu = () => {
         <div className={style.TopMenu}>
             <nav className={style.TopMenu__Nav}>
                 <ul>
-                    <li>
-                        <Link href="/react-filtering">
-                            <a className={`${style.TopMenu__Link} ${
-                                router.pathname === "/react-filtering"?
-                                    style["TopMenu__Link--active"]:
-                                    ""}`}
-                            >
-                                React frontend Version
-                            </a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/be-filtering">
-                            <a className={`${style.TopMenu__Link} ${
-                                router.pathname === "/be-filtering"?
-                                    style["TopMenu__Link--active"]:
-                                    ""}`}
-                            >
-                                Filtering on the nodejs server
-                            </a>
-                        </Link>
-                    </li>
+                    {links.map(el=>(
+                        <li key={el.url}>
+                            <Link href={el.url}>
+                                <a className={`${style.TopMenu__Link} ${
+                                    router.pathname === el.url?
+                                        style["TopMenu__Link--active"]:
+                                        ""}`}
+                                >
+                                    {el.text}
+                                </a>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>

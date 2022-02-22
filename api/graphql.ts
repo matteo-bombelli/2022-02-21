@@ -54,16 +54,8 @@ interface Input {
 
 const companiesQuery = () => {
     return `
-query {
-    specialities {
-        id
-        localizedName
-    }
-    getCompaniesPaginated(
-        $searchTerm: String, 
-        $filters: [String],
-        $page: Int
-    ){
+query GetCompaniesPaginated( $searchTerm: String, $filters: [String], $page: Int ) {
+    getCompaniesPaginated(searchTerm: $searchTerm, filters: $filters, page: $page ){
         companies {
             id
             companyName
@@ -111,6 +103,19 @@ export const getCompaniesFiltered = async ({
         const { data:{ getCompaniesPaginated } } = await req.json() as {data:{getCompaniesPaginated:OutputFilteredCall}} ;
         return getCompaniesPaginated
     } catch (e) {
-        throw e;
+        console.error(e);
+        return {
+            companies: [],
+            pagination: {
+                page: 0,
+                pages: 0,
+                size: 0,
+                limit: 0
+            },
+            filters:{
+                searchTerm: "",
+                filters: []
+            }
+        }
     }
 }

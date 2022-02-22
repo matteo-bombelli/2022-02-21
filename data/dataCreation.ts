@@ -1,5 +1,5 @@
 import { Company } from "./../sharedTypes/Company";
-import { promises as fs } from 'fs';
+import { promises as fs } from "fs";
 import path from "path";
 const dataDirectory = path.join(process.cwd(), 'data')
 

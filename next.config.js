@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/be-filtering',
+        destination: '/be-filtering-graphql',
         permanent: false,
       },
     ]

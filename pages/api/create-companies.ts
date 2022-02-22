@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 import { Company } from "../../sharedTypes/Company";
 import { exampleCompanies, saveExampleList, aLotOfCompanies, saveBigExampleList, saveSpecialities} from "../../data/dataCreation";
 

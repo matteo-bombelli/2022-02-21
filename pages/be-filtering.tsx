@@ -1,12 +1,11 @@
-import type { NextPage } from "next"
-import Head from "next/head"
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Company, Speciality } from "../sharedTypes/Company";
 import { getSpecialities } from "../api/specialities";
 import { getCompaniesFiltered } from "../api/getCompanyFiltered";
 import { CompaniesTable } from "../components/CompaniesTable";
 import { Filters } from "../components/Filters";
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
 	const [companies, setCompanies] = useState<Company[]>([]);

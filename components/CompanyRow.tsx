@@ -1,4 +1,4 @@
-import styles from './CompanyRow.module.scss';
+import styles from "./CompanyRow.module.scss";
 
 interface Props {
 	name: React.ReactElement,

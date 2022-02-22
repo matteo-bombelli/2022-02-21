@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { promises as fs } from 'fs'
-import path from 'path'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { promises as fs } from "fs";
+import path from "path";
 import { Speciality } from "../../sharedTypes/Company";
 
 const dataDirectory = path.join(process.cwd(), 'data')

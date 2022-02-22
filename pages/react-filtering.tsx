@@ -1,6 +1,6 @@
-import type { NextPage } from "next"
-import Head from "next/head"
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Company, Speciality } from "../sharedTypes/Company";
 import { getCompanies } from "../api/company";
 import { getSpecialities } from "../api/specialities";

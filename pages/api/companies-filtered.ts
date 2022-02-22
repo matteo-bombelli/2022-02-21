@@ -1,11 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { promises as fs } from 'fs'
-import path from 'path'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { promises as fs } from "fs";
+import path from "path";
 import { filterCompaniesByData } from "../../utils/filterCompanies";
-
 import { Company, OutputFilteredCall } from "./../../sharedTypes/Company"
 
-const dataDirectory = path.join(process.cwd(), 'data')
+const dataDirectory = path.join(process.cwd(), "data")
 
 interface ErrorOutPut {
     error:string
@@ -27,7 +26,12 @@ export default async function handler(
         const firstElement = limit * page;
         const lastElement = firstElement + limit;
 
-        const companies = JSON.parse(await fs.readFile(path.join(dataDirectory, "companies-big.json"), {encoding:"utf-8"})) as Company[];
+        const companies = JSON.parse(
+            await fs.readFile(
+                path.join(dataDirectory, "companies-big.json"), 
+                { encoding:"utf-8" }
+            )
+        ) as Company[];
 
         const filteredCompanies = filterCompaniesByData(companies, filters, searchTerm);
 
@@ -50,8 +54,9 @@ export default async function handler(
             }
         });
     } catch (e) {
+        console.error(e);
         res.status(500).json({
             error:"systemError"
-        })
+        });
     }
 }

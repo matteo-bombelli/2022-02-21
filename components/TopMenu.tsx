@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import style from "./TopMenu.module.scss";
 import { useRouter } from "next/router";
 

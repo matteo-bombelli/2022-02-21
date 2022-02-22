@@ -1,6 +1,6 @@
-import type { NextPage } from "next"
-import Head from "next/head"
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Company, Speciality } from "../sharedTypes/Company";
 import { getSpecialities, getCompaniesFiltered } from "../api/graphql";
 import { CompaniesTable } from "../components/CompaniesTable";

@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import type { NextApiRequest, NextApiResponse, PageConfig  } from 'next';
+import type { NextApiRequest, NextApiResponse, PageConfig  } from "next";
 import path from "path";
 import { gql, ApolloServer } from "apollo-server-micro";
 import { promises as fs } from 'fs';

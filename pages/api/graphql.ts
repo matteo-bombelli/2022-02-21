@@ -75,14 +75,6 @@ const getCompaniesPaginated = async (
             (_,index)=>(index >= firstElement && index < lastElement)
         )
 
-    console.log(JSON.stringify(
-        {
-            firstElement, 
-            lastElement,
-            companies: JSON.stringify(paginatedFilteredCompanies)
-        }, null, 4
-    ))
-
     return {
         companies: paginatedFilteredCompanies, 
         pagination:{

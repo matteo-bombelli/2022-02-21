@@ -34,6 +34,7 @@ npm run start
 
 due to responses there are two versions of the test:
 
+* be-filtering-graphql
 * be-filtering
 * react-filtering
 

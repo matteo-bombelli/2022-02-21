@@ -54,36 +54,36 @@ interface Input {
 
 const companiesQuery = () => {
     return `
-query GetCompaniesPaginated( $searchTerm: String, $filters: [String], $page: Int ) {
-    getCompaniesPaginated(searchTerm: $searchTerm, filters: $filters, page: $page ){
-        companies {
-            id
-            companyName
-            logo
-            city
-            specialities {
+        query GetCompaniesPaginated( $searchTerm: String, $filters: [String], $page: Int ) {
+            getCompaniesPaginated(searchTerm: $searchTerm, filters: $filters, page: $page ){
+                companies {
+                    id
+                    companyName
+                    logo
+                    city
+                    specialities {
+                        id
+                        localizedName
+                    }
+                }
+                pagination {
+                    page
+                    limit
+                    pages
+                }
+            }
+            companies {
                 id
-                localizedName
+                companyName
+                logo
+                city
+                specialities {
+                    id
+                    localizedName
+                }
             }
         }
-        pagination {
-            page
-            limit
-            pages
-        }
-    }
-    companies {
-        id
-        companyName
-        logo
-        city
-        specialities {
-            id
-            localizedName
-        }
-    }
-}
-`
+    `
 }
 
 export const getCompaniesFiltered = async ({

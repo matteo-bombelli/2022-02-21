@@ -14,7 +14,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<OutputFilteredCall|ErrorOutPut>
 ) {
-    
     try{
         const searchTerm = req.query.search_term as string;
 

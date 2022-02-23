@@ -65,6 +65,7 @@ other directories:
 
 suggested improvements: 
 
+* using rem instead of px
 * internazionalization
 * dockerization
 * debouncing calls to the backend

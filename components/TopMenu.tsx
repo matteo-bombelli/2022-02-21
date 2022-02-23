@@ -25,15 +25,20 @@ export const TopMenu = () => {
                 <ul>
                     {links.map(el=>(
                         <li key={el.url}>
-                            <Link href={el.url}>
-                                <a className={`${style.TopMenu__Link} ${
-                                    router.pathname === el.url?
-                                        style["TopMenu__Link--active"]:
-                                        ""}`}
+                            {router.pathname === el.url?(
+                                <span
+                                    className={`${style.TopMenu__Link} ${style["TopMenu__Link--active"]}`}
                                 >
                                     {el.text}
-                                </a>
-                            </Link>
+                                </span>
+                            ):(
+                                <Link href={el.url}>
+                                    <a className={style.TopMenu__Link}>
+                                        {el.text}
+                                    </a>
+                                </Link>
+                            )}
+                            
                         </li>
                     ))}
                 </ul>

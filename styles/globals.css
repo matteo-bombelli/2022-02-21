@@ -17,4 +17,9 @@ a {
 
 body {
   min-width:360px;
+  font-size: 1.6rem;
+}
+
+html {
+  font-size: 62.5%; /* this is to have 1rem = 10px ;) */
 }

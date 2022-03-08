@@ -5,10 +5,10 @@
   grid-template: 'logo name'
     'logo city'
     'specialities specialities';
-  grid-template-columns: 60px 1fr;
-  padding: 15px;
-  gap: 15px;
-  border-bottom: 1px solid #CCC;
+  grid-template-columns: 6rem 1fr;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  border-bottom: .1rem solid #CCC;
   &__mobileLabel{
     font-size: bold;
   }
@@ -17,7 +17,7 @@
     grid-area: name;
   }
   &__logo{
-    width:60px;
+    width:6.0rem;
     grid-area: logo;
   }
   &__specialities{
@@ -26,11 +26,11 @@
   &__city{
     grid-area: city;
   }
-  @media (min-width:801px){
+  @media (min-width: calc(801rem / 16) ){
     display:flex;
     width:100%;
     align-items: center;
-    padding: 15px;
+    padding: 1.5rem;
     &__name{
       width: 30%;
       display:flex;

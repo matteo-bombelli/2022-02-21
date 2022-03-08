@@ -1,6 +1,6 @@
 export interface Speciality {
     localizedName: string,
-    id:string
+    id:string,
 }
 
 export interface Company {

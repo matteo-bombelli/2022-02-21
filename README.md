@@ -1,5 +1,3 @@
-Test from Matteo Bombelli to Cosuno
-
 ## run the test:
 
 ### install dependencies
